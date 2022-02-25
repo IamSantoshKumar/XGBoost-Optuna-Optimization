@@ -43,7 +43,7 @@ def optimize(trial,x,y):
         "gpu_id": 0,
     }
     
-	num_rounds=args.n_iters
+    num_rounds=args.n_iters
 	
     auc_score = []
         
@@ -58,11 +58,11 @@ def optimize(trial,x,y):
 		
         model = xgb.train(
 		    xgb_params, 
-			train, 
-			num_rounds,
-			watchlist,
-			early_stopping_rounds=args.es_stop, 
-		)
+		    train, 
+		    num_rounds,
+		    watchlist,
+		    early_stopping_rounds=args.es_stop, 
+	)
         predicted = model.predict(valid)
         auc  = roc_auc_score(val_target, predicted)
         auc_score.append(auc)
@@ -89,4 +89,4 @@ if __name__=='__main__':
     study.optimize(optimize_func, n_trials=args.n_trials)
     trial = study.best_trial
     print('Score: {}'.format(trial.value))
-	print("Best hyperparameters: {}".format(trial.params))
+    print("Best hyperparameters: {}".format(trial.params))
